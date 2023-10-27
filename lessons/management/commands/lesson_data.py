@@ -2,6 +2,8 @@ from django.core.management import BaseCommand
 
 from courses.models import Course
 from lessons.models import Lesson
+from users.models import User
+
 
 class Command(BaseCommand):
     """
@@ -10,9 +12,40 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         lesson_list = [
             {
+                "name": "1.1 lesson",
+                "content": "1 урок 1 куса",
+                "course": Course.objects.get(pk=1),
+                "name_user": User.objects.get(pk=1)
+            },
+            {
+                "name": "1.2 lesson",
+                "content": "2 урок 1 куса",
+                "course": Course.objects.get(pk=1),
+                "name_user": User.objects.get(pk=2)
+            },
+            {
+                "name": "2.1 lesson",
+                "content": "1 урок 2 куса",
+                "course": Course.objects.get(pk=2),
+                "name_user": User.objects.get(pk=2)
+            },
+            {
+                "name": "2.2 lesson",
+                "content": "1 урок 1 куса",
+                "course": Course.objects.get(pk=2),
+                "name_user": User.objects.get(pk=1)
+            },
+            {
                 "name": "3.1 lesson",
-                "content": "Третий урок третьего",
-                "course": Course.objects.get(pk=1)
+                "content": "1 урок 3 куса",
+                "course": Course.objects.get(pk=3),
+                "name_user": User.objects.get(pk=3)
+            },
+            {
+                "name": "3.2 lesson",
+                "content": "2урок 3 куса",
+                "course": Course.objects.get(pk=3),
+                "name_user": User.objects.get(pk=1)
             }
         ]
 

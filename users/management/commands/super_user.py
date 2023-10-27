@@ -8,6 +8,7 @@ class Command(BaseCommand):
         first_name = 'Admin',
         number='123456789',
         city='spb',
+        role="moderator",
         is_superuser = True,
         is_staff = True,
         is_active = True

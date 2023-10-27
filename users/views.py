@@ -5,3 +5,7 @@ from users.serializers import UserSerializer
 class UserListAPIView(generics.ListAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+class UserUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()

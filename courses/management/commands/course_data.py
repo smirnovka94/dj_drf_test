@@ -1,6 +1,7 @@
 from django.core.management import BaseCommand
 
 from courses.models import Course
+from users.models import User
 
 
 class Command(BaseCommand):
@@ -11,12 +12,24 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         course_list = [
             {
+                "name": "Первый курс",
+                "content": "описание 1 курса",
+                "name_user": User.objects.get(pk=1)
+            },
+            {
+                "name": "Второй курс",
+                "content": "описание 2 курса",
+                "name_user": User.objects.get(pk=2)
+            },
+            {
                 "name": "Третий курс",
-                "content": "описание третьего курс"
+                "content": "описание третьего курс",
+                "name_user": User.objects.get(pk=2)
             },
             {
                 "name": "Четвертый курс",
-                "content": "описание 4 курса"
+                "content": "описание 4 курса",
+                "name_user": User.objects.get(pk=3)
             },
 
         ]
