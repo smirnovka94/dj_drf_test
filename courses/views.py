@@ -12,6 +12,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
 
+
     def get_permissions(self):
         if self.action in ['update', 'partial_update']:
             self.permission_classes = [IsOwner | IsModerator]
@@ -22,6 +23,11 @@ class CourseViewSet(viewsets.ModelViewSet):
         else:
             self.permission_classes = [IsAuthenticated]
         return super().get_permissions()
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user'] = self.request.user
+        return context
 
 
 class PaymentListAPIView(generics.ListAPIView):

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from courses.models import Course
@@ -5,7 +6,7 @@ from users.models import NULLABLE, User
 
 
 class Lesson(models.Model):
-    name_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь',**NULLABLE)
+    name_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='пользователь',**NULLABLE)
     name = models.CharField(max_length=100, verbose_name='название')
     content = models.TextField(verbose_name='описание')
     image = models.ImageField(upload_to='blogs/', verbose_name='превью', **NULLABLE)
