@@ -4,6 +4,7 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 
 from courses.models import Course, Payments
+from courses.paginators import CoursePaginator
 from courses.serializers import CourseSerializer, PaymentSerializer
 from users.permissions import IsOwner, IsModerator, IsNotModerator
 
@@ -11,7 +12,7 @@ from users.permissions import IsOwner, IsModerator, IsNotModerator
 class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
-
+    pagination_class = CoursePaginator
 
     def get_permissions(self):
         if self.action in ['update', 'partial_update']:
@@ -29,6 +30,10 @@ class CourseViewSet(viewsets.ModelViewSet):
         context['user'] = self.request.user
         return context
 
+    def get(self, request, queryset):
+        paginated_queryset = self.paginate_queryset(queryset)
+        serializer = CourseSerializer(paginated_queryset, many=True)
+        return self.get_paginated_response(serializer.data)
 
 class PaymentListAPIView(generics.ListAPIView):
     serializer_class = PaymentSerializer
