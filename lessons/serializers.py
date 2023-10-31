@@ -7,4 +7,4 @@ class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
-        validators = [ContentValidator(field='content')]
+        validators = [ContentValidator(field='url')]
