@@ -1,11 +1,10 @@
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter
-from rest_framework import viewsets, generics
+
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from courses.models import Course, Payments
+from courses.models import Course
 from courses.paginators import CoursePaginator
-from courses.serializers import CourseSerializer, PaymentSerializer
+from courses.serializers import CourseSerializer
 from users.permissions import IsOwner, IsModerator, IsNotModerator
 
 
@@ -35,13 +34,4 @@ class CourseViewSet(viewsets.ModelViewSet):
         serializer = CourseSerializer(paginated_queryset, many=True)
         return self.get_paginated_response(serializer.data)
 
-class PaymentListAPIView(generics.ListAPIView):
-    serializer_class = PaymentSerializer
-    queryset = Payments.objects.all()
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ('pay_course', 'pay_lesson', 'payment_method')
-    ordering_fields = ('data',)
-
-class PaymentCreateAPIView(generics.CreateAPIView):
-    serializer_class = PaymentSerializer
 

@@ -1,10 +1,9 @@
 from rest_framework import serializers
 from rest_framework.serializers import SerializerMethodField
 
-from courses.models import Course, Payments
+from courses.models import Course
 from courses.validators import ContentValidator
 from lessons.models import Lesson
-from subscriptions.serializers import SubscriptionSerializer
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -33,14 +32,3 @@ class CourseSerializer(serializers.ModelSerializer):
             return subscription.is_active
         return False
 
-
-
-class PaymentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Payments
-        fields = '__all__'
-
-class PaymentlistSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Payments
-        fields = '__all__'
