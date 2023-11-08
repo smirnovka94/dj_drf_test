@@ -1,30 +1,24 @@
-from demoapp.models import Widget
-
 from celery import shared_task
+from django.core.mail import send_mail
+from django.conf import settings
+
+from courses.models import Course
 
 
 @shared_task
-def add(x, y):
-    return x + y
+def check_course(name_course, email):
 
+    email = 'lekseich8@mail.ru' #Кому отправлять
+    send_mail(
+        subject=f"Обновленине курса {name_course}",
+        message=f"Вы получилии это письмо скоскольку подписались на рассылку",
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[email]
+    )
 
+    # if Subscription.objects.filter(users).exists():
 @shared_task
-def mul(x, y):
-    return x * y
-
-
-@shared_task
-def xsum(numbers):
-    return sum(numbers)
-
-
-@shared_task
-def count_widgets():
-    return Widget.objects.count()
-
-
-@shared_task
-def rename_widget(widget_id, name):
-    w = Widget.objects.get(id=widget_id)
-    w.name = name
-    w.save()
+def check_filter():
+    subscribed_courses = Course.objects.filter(subscription__is_active=True)
+    for course in subscribed_courses:
+        print(course.name)

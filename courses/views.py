@@ -11,7 +11,7 @@ from users.permissions import IsOwner, IsModerator, IsNotModerator
 class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
-    pagination_class = CoursePaginator
+    # pagination_class = CoursePaginator
 
     def get_permissions(self):
         if self.action in ['update', 'partial_update']:

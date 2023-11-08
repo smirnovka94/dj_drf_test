@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env_path = BASE_DIR / '.env'
+load_dotenv(dotenv_path=env_path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -161,7 +164,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ]
 }
 
@@ -176,17 +179,17 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
-        'task': 'myapp.tasks.my_task',  # Путь к задаче
+        'task': 'courses.tasks.check_filter',  # Путь к задаче
         'schedule': timedelta(minutes=10),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
 
-# # Часовой пояс для работы Celery
-# CELERY_TIMEZONE = "Australia/Tasmania"
+# Часовой пояс для работы Celery
+CELERY_TIMEZONE = "Europe/Moscow"
+
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
 #
-# # Флаг отслеживания выполнения задач
-# CELERY_TASK_TRACK_STARTED = True
-#
-# # Максимальное время на выполнение задачи
-# CELERY_TASK_TIME_LIMIT = 30 * 60
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
