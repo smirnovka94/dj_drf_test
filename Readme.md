@@ -7,7 +7,7 @@ python -m venv env
 ```
 Запускаем Виртуальнео окружение
 ```
-venv\Scripts\activate.bat
+env\Scripts\activate.bat
 ```
 Устанавливаем библиотеки
 ```
@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ```
 
 Создаем базу данных в PgAdmin с именем <drf_test>
-Создаем файл<.env>
+### Создаем файл<.env>
 .env.template переименовать на .env
 
 #### Выполнить миграции
