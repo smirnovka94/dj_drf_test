@@ -179,8 +179,8 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
-        'task': 'courses.tasks.check_filter',  # Путь к задаче
-        'schedule': timedelta(minutes=10),  # Расписание выполнения задачи (например, каждые 10 минут)
+        'task': 'courses.tasks.long_active_user',  # Путь к задаче
+        'schedule': timedelta(seconds=10),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
 

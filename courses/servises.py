@@ -11,8 +11,8 @@ schedule, created = IntervalSchedule.objects.get_or_create(
 
 PeriodicTask.objects.create(
      interval=schedule,
-     name='check_filter',
-     task='courses.tasks.check_filter',
+     name='long_active_user',
+     task='courses.tasks.long_active_user',
      args=json.dumps(['arg1', 'arg2']),
      kwargs=json.dumps({
         'be_careful': True,
