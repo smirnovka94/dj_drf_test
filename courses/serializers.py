@@ -42,7 +42,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
         data_subscription = subscription.data_subscription
         data_course = obj.data_course
-        if data_subscription>data_course:
+        if data_subscription<data_course:
             check_course.delay(name_course, request_user.email)
             return 'send_mail'
         return f"data_subscription{data_subscription} --- data_course{data_course}"

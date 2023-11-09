@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from courses.models import Course
 from courses.paginators import CoursePaginator
 from courses.serializers import CourseSerializer
+from courses.tasks import check_course
 from users.permissions import IsOwner, IsModerator, IsNotModerator
 
 
@@ -33,5 +34,11 @@ class CourseViewSet(viewsets.ModelViewSet):
         paginated_queryset = self.paginate_queryset(queryset)
         serializer = CourseSerializer(paginated_queryset, many=True)
         return self.get_paginated_response(serializer.data)
+
+    def perform_update(self, serializer):
+        new_update = serializer.save()
+        if new_update:
+            check_course.apply_async(args=[new_update.id])
+            new_update.save()
 
 
