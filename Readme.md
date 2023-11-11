@@ -25,9 +25,9 @@ python manage.py migrate
 ```
 Загрузить базу данных
 ```
-python manage.py loaddata users_data.json
-python manage.py loaddata course_data.json
-python manage.py loaddata lesson_data.json
+python manage.py users_data
+python manage.py course_data
+python manage.py lesson_data
 
 
 ```
