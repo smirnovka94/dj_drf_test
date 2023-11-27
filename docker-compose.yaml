@@ -33,5 +33,22 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+  celery:
+    build: .
+    tty: True
+    command: celery -A config worker -l INFO --pool=solo
+    depends_on:
+      - redis
+      - app
+
+  celery_beat:
+    build: .
+    tty: True
+    command: celery -A config beat -l INFO -S django
+    depends_on:
+      - redis
+      - app
+
 volumes:
   pg_data:
